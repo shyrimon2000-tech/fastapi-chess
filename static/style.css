@@ -1,0 +1,291 @@
+:root {
+  --bg: #1f2421;
+  --panel: #2b312d;
+  --panel-2: #353d38;
+  --line: #4a544d;
+  --text: #ecf2ed;
+  --muted: #aeb8b1;
+  --green: #5f8f63;
+  --green-2: #7caf80;
+  --danger: #a85c5c;
+  --board-light: #dfe5df;
+  --board-dark: #6f8f72;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #2b312d 0%, #1f2421 55%, #191d1a 100%);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 1080px;
+}
+
+.card {
+  background: rgba(43, 49, 45, 0.96);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin: 0 0 22px 0;
+}
+
+.center-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 380px;
+  display: grid;
+  gap: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+  color: var(--text);
+  outline: none;
+  font-size: 15px;
+}
+
+input::placeholder {
+  color: #93a097;
+}
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 11px 16px;
+  background: var(--green);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+
+button:hover {
+  background: var(--green-2);
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: #556058;
+}
+
+button.secondary:hover {
+  background: #667267;
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+button.danger:hover {
+  background: #bc6f6f;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.status-line {
+  min-height: 24px;
+  margin-top: 14px;
+  text-align: center;
+  color: var(--green-2);
+}
+
+.status-line.error {
+  color: #ffb0b0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.menu-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.menu-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.room-create-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.room-create-box input {
+  max-width: 320px;
+}
+
+.rooms-list {
+  display: grid;
+  gap: 12px;
+}
+
+.room-item {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.room-item-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.room-meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.room-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.game-layout {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+}
+
+.game-info {
+  width: 100%;
+  max-width: 560px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  line-height: 1.9;
+}
+
+#board {
+  width: 560px;
+  height: 560px;
+  max-width: min(92vw, 560px);
+  max-height: min(92vw, 560px);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  border: 2px solid #445048;
+  border-radius: 14px;
+  overflow: hidden;
+  user-select: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.sq {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 42px;
+  line-height: 1;
+  cursor: pointer;
+  font-family: "Segoe UI Symbol", "Arial Unicode MS", Arial, sans-serif;
+}
+
+.light {
+  background: var(--board-light);
+}
+
+.dark {
+  background: var(--board-dark);
+}
+
+.piece-white {
+  color: #f5f7f5;
+}
+
+.piece-black {
+  color: #1f2421;
+}
+
+.sel {
+  outline: 3px solid #d8a24a;
+  outline-offset: -3px;
+}
+
+@media (max-width: 700px) {
+  .card {
+    padding: 16px;
+  }
+
+  #board {
+    width: min(92vw, 560px);
+    height: min(92vw, 560px);
+  }
+
+  .sq {
+    font-size: 30px;
+  }
+}

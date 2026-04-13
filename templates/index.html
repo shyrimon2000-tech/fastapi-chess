@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>FastAPI Chess</title>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="card">
+
+      <section id="authScreen" class="screen active">
+        <div class="center-wrap">
+          <h1>FastAPI Chess</h1>
+          <div class="subtitle">Register, login, or continue as guest</div>
+
+          <div class="auth-box">
+            <input id="usernameInput" placeholder="Username" />
+            <input id="passwordInput" type="password" placeholder="Password" />
+
+            <div class="btn-row">
+              <button id="registerBtn">Register</button>
+              <button id="loginBtn" class="secondary">Login</button>
+              <button id="guestBtn">Guest</button>
+            </div>
+          </div>
+
+          <div id="authStatus" class="status-line"></div>
+        </div>
+      </section>
+
+      <section id="menuScreen" class="screen">
+        <div class="topbar">
+          <div>
+            <div><b>User:</b> <span id="menuUsername">-</span></div>
+            <div class="muted">User ID: <span id="menuUserId">-</span></div>
+          </div>
+
+          <div class="btn-row">
+            <button id="refreshRoomsBtn" class="secondary">Refresh rooms</button>
+            <button id="logoutBtn" class="danger">Logout</button>
+          </div>
+        </div>
+
+        <h2>Game Menu</h2>
+        <div class="subtitle">Quick game, create a room, or choose one from the list</div>
+
+        <div class="menu-grid">
+          <div class="menu-actions">
+            <button id="quickGameBtn">Quick Game</button>
+          </div>
+
+          <div class="room-create-box">
+            <input id="roomNameInput" placeholder="Room name (optional)" />
+            <button id="createRoomBtn">Create Room</button>
+          </div>
+
+          <div>
+            <h3>Room List</h3>
+            <div id="roomsList" class="rooms-list"></div>
+          </div>
+        </div>
+
+        <div id="menuStatus" class="status-line"></div>
+      </section>
+
+      <section id="gameScreen" class="screen">
+        <div class="topbar">
+          <div>
+            <div><b>Room:</b> <span id="roomIdLabel">-</span></div>
+            <div class="muted">Player: <span id="gameUsername">-</span></div>
+          </div>
+
+          <div class="btn-row">
+            <button id="backToMenuBtn" class="secondary">Back to Menu</button>
+            <button id="leaveGameBtn" class="danger">Leave Game</button>
+            <button id="resetBtn">Reset</button>
+          </div>
+        </div>
+
+        <div class="game-layout">
+          <div class="game-info">
+            <div><b>Role:</b> <span id="role">?</span></div>
+            <div><b>Turn:</b> <span id="turn">?</span></div>
+            <div><b>Status:</b> <span id="status">-</span></div>
+          </div>
+
+          <div id="board"></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,7 +1,8 @@
+from datetime import datetime
+
 from sqlalchemy import String, Integer, Boolean, DateTime, func, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from db import Base
-
 
 class User(Base):
     __tablename__ = "users"
@@ -36,6 +37,13 @@ class Game(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
 
+    room_id: Mapped[int] = mapped_column(
+        ForeignKey("rooms.id"),
+        unique=True,
+        nullable=False,
+        index=True
+    )
+
     white_user_id: Mapped[int | None] = mapped_column(
         ForeignKey("users.id"),
         nullable=True
@@ -54,16 +62,64 @@ class Game(Base):
     status: Mapped[str] = mapped_column(
         String(30),
         nullable=False,
-        default="active"
+        default="waiting"
+    )
+    # waiting / active / checkmate / stalemate / resigned / abandoned / closed
+
+    winner_user_id: Mapped[int | None] = mapped_column(
+        ForeignKey("users.id"),
+        nullable=True
     )
 
-    created_at: Mapped[str] = mapped_column(
+    created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now()
     )
 
-    updated_at: Mapped[str] = mapped_column(
+    updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
         onupdate=func.now()
+    )
+
+class Room(Base):
+    __tablename__ = "rooms"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    created_by_user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+
+    status: Mapped[str] = mapped_column(String(30), nullable=False, default="open")
+    # open / active / closed
+
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+class RoomMember(Base):
+    __tablename__ = "room_members"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+
+    room_id: Mapped[int] = mapped_column(ForeignKey("rooms.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
+
+    role: Mapped[str] = mapped_column(String(20), nullable=False)
+    # white / black / spectator
+
+    is_connected: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+
+    disconnect_deadline: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True
+    )
+
+    joined_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now()
+    )
+
+    left_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True
     )
