@@ -987,9 +987,3 @@ async def ws_endpoint(ws: WebSocket):
                 disconnect_tasks[task_key] = asyncio.create_task(
                     delayed_disconnect_cleanup(room_id, user_id, delay=30)
                 )
-
-def main():
-    uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
-
-if __name__ == "__main__":
-    main()
