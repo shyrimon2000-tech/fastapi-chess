@@ -70,7 +70,7 @@ If you change the database password in `.env`, make sure it is also reflected in
 Make sure you have Docker installed.
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 Then open your browser:
